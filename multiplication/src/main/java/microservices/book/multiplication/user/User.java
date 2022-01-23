@@ -1,16 +1,18 @@
 package microservices.book.multiplication.user;
 
 import lombok.*;
+import javax.persistence.*;
 
-/**
- * Stores information to identify the user.
- */
-@Getter
-@ToString
-@EqualsAndHashCode
+@Entity
+@Table(name = "users")
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String alias;
 
