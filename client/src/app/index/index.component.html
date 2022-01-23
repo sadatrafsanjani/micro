@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1>Guess The Number</h1>
+
+      <form [formGroup]="attemptForm" (ngSubmit)="onSubmit()">
+
+        <div class="mb-3">
+          <span *ngIf="challengeResponse != null">
+            <h3>{{challengeResponse.factorA}} X {{challengeResponse.factorB}}</h3>
+          </span>
+          <input type="text" class="form-control" placeholder="Guess...."
+                 aria-label="guess" aria-describedby="guess" formControlName="guess"
+                 name="guess" id="guess" />
+        </div>
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Name...."
+                 aria-label="alias" aria-describedby="alias" formControlName="alias"
+                 name="alias" id="alias" />
+        </div>
+        <div class="mb-3">
+          <button class="btn btn-outline-secondary" type="submit">Submit</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+    </div>
+  </div>
+</div>

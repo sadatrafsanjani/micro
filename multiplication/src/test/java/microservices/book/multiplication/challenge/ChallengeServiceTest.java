@@ -1,8 +1,11 @@
 package microservices.book.multiplication.challenge;
 
+import microservices.book.multiplication.challenge.dto.AttemptDTO;
+import microservices.book.multiplication.challenge.model.Attempt;
+import microservices.book.multiplication.challenge.service.abstraction.ChallengeService;
+import microservices.book.multiplication.challenge.service.implementation.ChallengeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.BDDAssertions.then;
 
 public class ChallengeServiceTest {
@@ -17,12 +20,10 @@ public class ChallengeServiceTest {
     @Test
     public void checkCorrectAttemptTest() {
         // given
-        ChallengeAttemptDTO attemptDTO =
-                new ChallengeAttemptDTO(50, 60, "john_doe", 3000);
+        AttemptDTO attemptDTO = new AttemptDTO(50, 60, "john_doe", 3000);
 
         // when
-        ChallengeAttempt resultAttempt =
-                challengeService.verifyAttempt(attemptDTO);
+        Attempt resultAttempt = challengeService.verifyAttempt(attemptDTO);
 
         // then
         then(resultAttempt.isCorrect()).isTrue();
@@ -31,12 +32,10 @@ public class ChallengeServiceTest {
     @Test
     public void checkWrongAttemptTest() {
         // given
-        ChallengeAttemptDTO attemptDTO =
-                new ChallengeAttemptDTO(50, 60, "john_doe", 5000);
+        AttemptDTO attemptDTO = new AttemptDTO(50, 60, "john_doe", 5000);
 
         // when
-        ChallengeAttempt resultAttempt =
-                challengeService.verifyAttempt(attemptDTO);
+        Attempt resultAttempt = challengeService.verifyAttempt(attemptDTO);
 
         // then
         then(resultAttempt.isCorrect()).isFalse();
