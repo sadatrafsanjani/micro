@@ -6,6 +6,7 @@ import {ChallengeResponse} from "../dto/challenge-response";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AttemptPayload} from "../dto/attempt-payload";
 import {AttemptService} from "../service/attempt.service";
+import {AttemptResponse} from "../dto/attempt-response";
 
 @Component({
   selector: 'app-index',
@@ -15,6 +16,7 @@ import {AttemptService} from "../service/attempt.service";
 export class IndexComponent implements OnInit {
 
   challengeResponse!: ChallengeResponse;
+  attempts!: AttemptResponse[];
   attemptForm: FormGroup;
   private attemptPayload!: AttemptPayload;
 
@@ -66,11 +68,27 @@ export class IndexComponent implements OnInit {
     this.attemptPayload.guess = this.guess?.value;
 
     this.attemptService.postAttempt(this.attemptPayload).subscribe(response => {
-      this.toastr.success(JSON.stringify(response));
+      this.getLast10AttemptsByAlias(this.attemptPayload.userAlias);
+      this.getRandomChallenge();
     }, error => {
       this.toastr.error('Error!');
     });
 
     this.attemptForm.patchValue({'alias': '', 'guess': ''});
+  }
+
+
+  private getLast10AttemptsByAlias(alias: string){
+
+    this.attemptService.getLast10AttemptsByAlias(alias).subscribe(response => {
+      this.attempts = response;
+    },error => {
+      this.toastr.error('Error!');
+    });
+  }
+
+  isCorrect(correct: boolean){
+
+    return correct ? "text-success" : "text-danger";
   }
 }

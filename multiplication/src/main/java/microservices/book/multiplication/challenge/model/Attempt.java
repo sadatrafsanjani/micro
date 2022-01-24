@@ -22,8 +22,15 @@ public class Attempt {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    @Column(name = "FACTOR_A")
     private int factorA;
+
+    @Column(name = "FACTOR_B")
     private int factorB;
+
+    @Column(name = "RESULT_ATTEMPT")
     private int resultAttempt;
+
+    @Column(name = "CORRECT")
     private boolean correct;
 }

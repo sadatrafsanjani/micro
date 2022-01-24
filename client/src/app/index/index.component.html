@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12 text-center">
+    <div class="col-md-6 text-center">
       <h1>Guess The Number</h1>
 
       <form [formGroup]="attemptForm" (ngSubmit)="onSubmit()">
@@ -24,11 +24,26 @@
 
       </form>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-
+    <div class="col-md-6">
+      <div *ngIf="attempts != null">
+        <table class="table table-bordered">
+          <tr>
+            <td>ID</td>
+            <td>Factor A</td>
+            <td>Factor B</td>
+            <td>Guess</td>
+            <td>Result</td>
+          </tr>
+          <tr *ngFor="let attempt of attempts">
+            <td [ngClass]="isCorrect(attempt.correct)">{{attempt.id}}</td>
+            <td [ngClass]="isCorrect(attempt.correct)">{{attempt.factorA}}</td>
+            <td [ngClass]="isCorrect(attempt.correct)">{{attempt.factorB}}</td>
+            <td [ngClass]="isCorrect(attempt.correct)">{{attempt.resultAttempt}}</td>
+            <td [ngClass]="isCorrect(attempt.correct)">{{attempt.correct ? 'Correct' : 'Incorrect' }}</td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
+
 </div>

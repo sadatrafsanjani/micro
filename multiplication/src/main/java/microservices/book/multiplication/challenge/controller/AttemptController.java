@@ -8,6 +8,7 @@ import microservices.book.multiplication.challenge.dto.AttemptDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,5 +22,11 @@ public class AttemptController {
     public ResponseEntity<Attempt> postResult(@RequestBody @Valid AttemptDTO attemptDTO) {
 
         return ResponseEntity.ok(challengeService.verifyAttempt(attemptDTO));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Attempt>> getStatistics(@RequestParam("alias") String alias) {
+
+        return ResponseEntity.ok(challengeService.getUserStatistics(alias));
     }
 }

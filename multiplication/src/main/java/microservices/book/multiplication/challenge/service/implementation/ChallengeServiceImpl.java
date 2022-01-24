@@ -1,32 +1,52 @@
 package microservices.book.multiplication.challenge.service.implementation;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import microservices.book.multiplication.challenge.dto.AttemptDTO;
 import microservices.book.multiplication.challenge.model.Attempt;
+import microservices.book.multiplication.challenge.repository.AttemptRepository;
+import microservices.book.multiplication.challenge.repository.UserRepository;
 import microservices.book.multiplication.challenge.service.abstraction.ChallengeService;
 import microservices.book.multiplication.user.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Slf4j
 @Service
+@AllArgsConstructor
 public class ChallengeServiceImpl implements ChallengeService {
 
+    private UserRepository userRepository;
+    private AttemptRepository attemptRepository;
+
     @Override
-    public Attempt verifyAttempt(AttemptDTO attemptDTO) {
+    public Attempt verifyAttempt(AttemptDTO dto) {
 
-        // Check if the attempt is correct
-        boolean isCorrect = attemptDTO.getGuess() == attemptDTO.getFactorA() * attemptDTO.getFactorB();
+        User user = userRepository.findByAlias(dto.getUserAlias())
+                .orElseGet(() -> {
+                    log.info("Creating new user with alias {}", dto.getUserAlias());
 
-        // We don't use identifiers for now
-        User user = new User(null, attemptDTO.getUserAlias());
+                    return userRepository.save(new User(dto.getUserAlias()));
+                });
 
-        // Builds the domain object. Null id for now.
+        boolean isCorrect = dto.getGuess() == dto.getFactorA() * dto.getFactorB();
 
-        return Attempt.builder()
+        Attempt attempt = Attempt.builder()
                 .id(null)
                 .user(user)
-                .factorA(attemptDTO.getFactorA())
-                .factorB(attemptDTO.getFactorB())
-                .resultAttempt(attemptDTO.getGuess())
+                .factorA(dto.getFactorA())
+                .factorB(dto.getFactorB())
+                .resultAttempt(dto.getGuess())
                 .correct(isCorrect)
                 .build();
+
+        return attemptRepository.save(attempt);
+    }
+
+    @Override
+    public List<Attempt> getUserStatistics(String userAlias) {
+
+        return attemptRepository.findTop10ByUserAliasOrderByIdDesc(userAlias);
     }
 }
