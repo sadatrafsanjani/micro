@@ -1,21 +1,19 @@
 package microservices.book.multiplication.challenge;
 
-import microservices.book.multiplication.challenge.dto.AttemptDTO;
-import microservices.book.multiplication.challenge.model.Attempt;
-import microservices.book.multiplication.challenge.repository.AttemptRepository;
-import microservices.book.multiplication.challenge.repository.UserRepository;
-import microservices.book.multiplication.challenge.service.abstraction.ChallengeService;
-import microservices.book.multiplication.challenge.service.implementation.ChallengeServiceImpl;
-import microservices.book.multiplication.user.User;
+import microservices.book.multiplication.client.GamificationClient;
+import microservices.book.multiplication.dto.AttemptDTO;
+import microservices.book.multiplication.model.Attempt;
+import microservices.book.multiplication.repository.AttemptRepository;
+import microservices.book.multiplication.repository.UserRepository;
+import microservices.book.multiplication.service.abstraction.ChallengeService;
+import microservices.book.multiplication.service.implementation.ChallengeServiceImpl;
+import microservices.book.multiplication.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.mockito.AdditionalAnswers.returnsFirstArg;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,10 +25,12 @@ public class ChallengeServiceTest {
     private UserRepository userRepository;
     @Mock
     private AttemptRepository attemptRepository;
+    @Mock
+    private GamificationClient gamificationClient;
 
     @BeforeEach
     public void setUp() {
-        challengeService = new ChallengeServiceImpl(userRepository, attemptRepository);
+        challengeService = new ChallengeServiceImpl(userRepository, attemptRepository, gamificationClient);
     }
 
     @Test
@@ -46,6 +46,7 @@ public class ChallengeServiceTest {
 
         verify(userRepository).save(new User("john_doe"));
         verify(attemptRepository).save(resultAttempt);
+        verify(gamificationClient).sendAttempt(resultAttempt);
     }
 
     @Test

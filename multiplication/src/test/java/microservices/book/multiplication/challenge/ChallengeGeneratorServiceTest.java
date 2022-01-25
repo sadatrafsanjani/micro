@@ -1,8 +1,8 @@
 package microservices.book.multiplication.challenge;
 
-import microservices.book.multiplication.challenge.model.Challenge;
-import microservices.book.multiplication.challenge.service.abstraction.ChallengeGeneratorService;
-import microservices.book.multiplication.challenge.service.implementation.ChallengeGeneratorServiceImpl;
+import microservices.book.multiplication.model.Challenge;
+import microservices.book.multiplication.service.abstraction.ChallengeGeneratorService;
+import microservices.book.multiplication.service.implementation.ChallengeGeneratorServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

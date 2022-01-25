@@ -1,10 +1,10 @@
 package microservices.book.multiplication.challenge;
 
-import microservices.book.multiplication.challenge.controller.AttemptController;
-import microservices.book.multiplication.challenge.dto.AttemptDTO;
-import microservices.book.multiplication.challenge.model.Attempt;
-import microservices.book.multiplication.challenge.service.abstraction.ChallengeService;
-import microservices.book.multiplication.user.User;
+import microservices.book.multiplication.controller.AttemptController;
+import microservices.book.multiplication.dto.AttemptDTO;
+import microservices.book.multiplication.model.Attempt;
+import microservices.book.multiplication.service.abstraction.ChallengeService;
+import microservices.book.multiplication.model.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
