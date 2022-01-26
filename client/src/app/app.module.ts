@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxSpinnerModule} from "ngx-spinner";
 import { IndexComponent } from './index/index.component';
 import {HttpClientModule} from "@angular/common/http";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
@@ -25,8 +28,7 @@ import {HttpClientModule} from "@angular/common/http";
         positionClass: 'toast-bottom-right',
         preventDuplicates: true
       }
-    ),
-    ReactiveFormsModule
+    )
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

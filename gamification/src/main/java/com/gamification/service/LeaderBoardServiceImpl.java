@@ -26,7 +26,9 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
             List<String> badges =
                     badgeRepository.findByUserIdOrderByBadgeTimestampDesc(
                                     row.getUserId()).stream()
-                            .map(b -> b.getBadgeType().getDescription())
+                            .map(b ->
+                                b.getBadgeType().getDescription()
+                            )
                             .collect(Collectors.toList());
             return row.withBadges(badges);
         }).collect(Collectors.toList());

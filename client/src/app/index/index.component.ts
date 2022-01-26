@@ -7,6 +7,10 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AttemptPayload} from "../dto/attempt-payload";
 import {AttemptService} from "../service/attempt.service";
 import {AttemptResponse} from "../dto/attempt-response";
+import {LeaderboardService} from "../service/leaderboard.service";
+import {UserService} from "../service/user.service";
+import {LeaderboardResponse} from "../dto/leaderboard-response";
+import { faMedal } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-index',
@@ -15,13 +19,17 @@ import {AttemptResponse} from "../dto/attempt-response";
 })
 export class IndexComponent implements OnInit {
 
+  faMedal = faMedal;
   challengeResponse!: ChallengeResponse;
   attempts!: AttemptResponse[];
+  leaderboards!: LeaderboardResponse[];
   attemptForm: FormGroup;
   private attemptPayload!: AttemptPayload;
 
   constructor(private challengeService: ChallengeService,
               private attemptService: AttemptService,
+              private leaderboardService: LeaderboardService,
+              private userService: UserService,
               private toastr: ToastrService,
               private spinner: NgxSpinnerService) {
     this.attemptForm = new FormGroup({
@@ -69,6 +77,7 @@ export class IndexComponent implements OnInit {
 
     this.attemptService.postAttempt(this.attemptPayload).subscribe(response => {
       this.getLast10AttemptsByAlias(this.attemptPayload.userAlias);
+      this.getLeaderboard();
       this.getRandomChallenge();
     }, error => {
       this.toastr.error('Error!');
@@ -87,8 +96,31 @@ export class IndexComponent implements OnInit {
     });
   }
 
+  private getLeaderboard(){
+
+    this.leaderboardService.getLeaderboards().subscribe(response => {
+        this.leaderboards = response;
+      },
+      error => {
+        this.toastr.error('Error!');
+      });
+  }
+
   isCorrect(correct: boolean){
 
     return correct ? "text-success" : "text-danger";
+  }
+
+  getBadgeColor(badge: string){
+
+    const colorMap = new Map();
+
+    colorMap.set('Bronze', 'badge-bronze');
+    colorMap.set('Silver', 'badge-silver');
+    colorMap.set('Gold', 'badge-gold');
+    colorMap.set('First time', 'badge-first-time');
+    colorMap.set('Lucky Number', 'badge-lucky-number');
+
+    return colorMap.get(badge);
   }
 }

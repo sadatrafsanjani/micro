@@ -8,7 +8,7 @@ import {LeaderboardResponse} from "../dto/leaderboard-response";
 })
 export class LeaderboardService {
 
-  private url =  'http://localhost:8080/leaderboards';
+  private url =  'http://localhost:8081/leaderboards';
 
   constructor(private http: HttpClient) {
 

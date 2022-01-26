@@ -17,7 +17,7 @@ public class ScoreCard {
     public static final int DEFAULT_SCORE = 10;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cardId;
 
     private Long userId;

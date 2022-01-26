@@ -19,30 +19,52 @@
                  name="alias" id="alias" />
         </div>
         <div class="mb-3">
-          <button class="btn btn-outline-secondary" type="submit">Submit</button>
+          <button class="btn btn-success w-100" type="submit">Submit</button>
         </div>
 
       </form>
     </div>
     <div class="col-md-6">
-      <div *ngIf="attempts != null">
-        <table class="table table-bordered">
-          <tr>
-            <td>ID</td>
-            <td>Factor A</td>
-            <td>Factor B</td>
-            <td>Guess</td>
-            <td>Result</td>
-          </tr>
-          <tr *ngFor="let attempt of attempts">
-            <td [ngClass]="isCorrect(attempt.correct)">{{attempt.id}}</td>
-            <td [ngClass]="isCorrect(attempt.correct)">{{attempt.factorA}}</td>
-            <td [ngClass]="isCorrect(attempt.correct)">{{attempt.factorB}}</td>
-            <td [ngClass]="isCorrect(attempt.correct)">{{attempt.resultAttempt}}</td>
-            <td [ngClass]="isCorrect(attempt.correct)">{{attempt.correct ? 'Correct' : 'Incorrect' }}</td>
-          </tr>
-        </table>
-      </div>
+      <table class="table table-bordered" *ngIf="attempts != null">
+        <tr>
+          <td>ID</td>
+          <td>Factor A</td>
+          <td>Factor B</td>
+          <td>Guess</td>
+          <td>Result</td>
+        </tr>
+        <tr *ngFor="let attempt of attempts; let i = index">
+          <td [ngClass]="isCorrect(attempt.correct)">{{i + 1}}</td>
+          <td [ngClass]="isCorrect(attempt.correct)">{{attempt.factorA}}</td>
+          <td [ngClass]="isCorrect(attempt.correct)">{{attempt.factorB}}</td>
+          <td [ngClass]="isCorrect(attempt.correct)">{{attempt.resultAttempt}}</td>
+          <td [ngClass]="isCorrect(attempt.correct)">{{attempt.correct ? 'Correct' : 'Incorrect' }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="mb-3">Leader Board</h2>
+      <table class="table table-bordered" *ngIf="attempts != null">
+        <tr>
+          <td>ID</td>
+          <td>User</td>
+          <td>ToTal Score</td>
+          <td>Badges</td>
+        </tr>
+        <tr *ngFor="let leaderboard of leaderboards; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{leaderboard.userId}}</td>
+          <td>{{leaderboard.totalScore}}</td>
+          <td>
+            <div *ngFor="let badge of leaderboard.badges">
+              <fa-icon [icon]="faMedal" size="2x" [ngClass]="getBadgeColor(badge)"></fa-icon> {{badge}}
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 
