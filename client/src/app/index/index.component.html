@@ -56,7 +56,7 @@
         </tr>
         <tr *ngFor="let leaderboard of leaderboards; let i = index">
           <td>{{i + 1}}</td>
-          <td>{{leaderboard.userId}}</td>
+          <td>{{leaderboard.alias ? leaderboard.alias : leaderboard.userId}}</td>
           <td>{{leaderboard.totalScore}}</td>
           <td>
             <div *ngFor="let badge of leaderboard.badges">

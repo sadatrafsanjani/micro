@@ -21,8 +21,8 @@ export class IndexComponent implements OnInit {
 
   faMedal = faMedal;
   challengeResponse!: ChallengeResponse;
-  attempts!: AttemptResponse[];
-  leaderboards!: LeaderboardResponse[];
+  attempts: AttemptResponse[] = [];
+  leaderboards: LeaderboardResponse[] = [];
   attemptForm: FormGroup;
   private attemptPayload!: AttemptPayload;
 
@@ -48,6 +48,30 @@ export class IndexComponent implements OnInit {
     };
 
     this.getRandomChallenge();
+    this.refreshLeaderBoard();
+    setInterval(this.refreshLeaderBoard.bind(this), 5000);
+  }
+
+  private refreshLeaderBoard(){
+
+    this.leaderboardService.getLeaderboards().subscribe(response => {
+
+      let userIds = response.map(row => row.userId);
+
+      this.userService.getUsers(userIds).subscribe(users => {
+
+        let userMap = new Map();
+        users.forEach(user => {
+          userMap.set(user.id, user.userAlias);
+        });
+
+        response.forEach(row => {
+            row['alias'] = userMap.get(row.userId);
+        });
+
+        this.updateLeaderBoard(response);
+      });
+    });
   }
 
   private getRandomChallenge(){
@@ -77,7 +101,6 @@ export class IndexComponent implements OnInit {
 
     this.attemptService.postAttempt(this.attemptPayload).subscribe(response => {
       this.getLast10AttemptsByAlias(this.attemptPayload.userAlias);
-      this.getLeaderboard();
       this.getRandomChallenge();
     }, error => {
       this.toastr.error('Error!');
@@ -86,7 +109,6 @@ export class IndexComponent implements OnInit {
     this.attemptForm.patchValue({'alias': '', 'guess': ''});
   }
 
-
   private getLast10AttemptsByAlias(alias: string){
 
     this.attemptService.getLast10AttemptsByAlias(alias).subscribe(response => {
@@ -94,16 +116,6 @@ export class IndexComponent implements OnInit {
     },error => {
       this.toastr.error('Error!');
     });
-  }
-
-  private getLeaderboard(){
-
-    this.leaderboardService.getLeaderboards().subscribe(response => {
-        this.leaderboards = response;
-      },
-      error => {
-        this.toastr.error('Error!');
-      });
   }
 
   isCorrect(correct: boolean){
@@ -122,5 +134,10 @@ export class IndexComponent implements OnInit {
     colorMap.set('Lucky Number', 'badge-lucky-number');
 
     return colorMap.get(badge);
+  }
+
+  private updateLeaderBoard(leaderboardResponse: LeaderboardResponse[]){
+
+    this.leaderboards = leaderboardResponse;
   }
 }

@@ -14,7 +14,7 @@ export class UserService {
 
   }
 
-  getUsers(idList: []): Observable<UserResponse[]> {
+  getUsers(idList: number[]): Observable<UserResponse[]> {
 
     return this.http.get<UserResponse[]>(this.url + '/' + idList);
   }
