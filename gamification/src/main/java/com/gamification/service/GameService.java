@@ -1,9 +1,9 @@
 package com.gamification.service;
 
 import com.gamification.domain.GameResult;
-import com.gamification.dto.ChallengeSolvedDTO;
+import com.challenge.ChallengeSolvedEvent;
 
 public interface GameService {
 
-    GameResult newAttemptForUser(ChallengeSolvedDTO challenge);
+    GameResult newAttemptForUser(ChallengeSolvedEvent challenge);
 }

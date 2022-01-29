@@ -1,6 +1,6 @@
 package com.gamification.controller;
 
-import com.gamification.dto.ChallengeSolvedDTO;
+import com.challenge.ChallengeSolvedEvent;
 import com.gamification.service.GameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class GameController {
     private final GameService gameService;
 
     @PostMapping
-    public ResponseEntity<?> postResult(@RequestBody ChallengeSolvedDTO dto) {
+    public ResponseEntity<?> postResult(@RequestBody ChallengeSolvedEvent dto) {
 
         gameService.newAttemptForUser(dto);
 

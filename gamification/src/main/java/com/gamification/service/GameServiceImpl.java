@@ -4,7 +4,7 @@ import com.gamification.domain.BadgeCard;
 import com.gamification.domain.BadgeType;
 import com.gamification.domain.GameResult;
 import com.gamification.domain.ScoreCard;
-import com.gamification.dto.ChallengeSolvedDTO;
+import com.challenge.ChallengeSolvedEvent;
 import com.gamification.processor.BadgeProcessor;
 import com.gamification.repository.BadgeRepository;
 import com.gamification.repository.ScoreRepository;
@@ -28,14 +28,16 @@ public class GameServiceImpl implements GameService {
     private final List<BadgeProcessor> badgeProcessors;
 
     @Override
-    public GameResult newAttemptForUser(final ChallengeSolvedDTO challenge) {
+    public GameResult newAttemptForUser(final ChallengeSolvedEvent challenge) {
 
         // We give points only if it's correct
         if (challenge.isCorrect()) {
             ScoreCard scoreCard = new ScoreCard(challenge.getUserId(), challenge.getAttemptId());
             scoreRepository.save(scoreCard);
             log.info("User {} scored {} points for attempt id {}", challenge.getUserAlias(), scoreCard.getScore(), challenge.getAttemptId());
+
             List<BadgeCard> badgeCards = processForBadges(challenge);
+
             return new GameResult(scoreCard.getScore(), badgeCards.stream().map(BadgeCard::getBadgeType).collect(Collectors.toList()));
         } else {
             log.info("Attempt id {} is not correct. " + "User {} does not get score.", challenge.getAttemptId(), challenge.getUserAlias());
@@ -48,7 +50,7 @@ public class GameServiceImpl implements GameService {
      * Checks the total score and the different score cards obtained
      * to give new badges in case their conditions are met.
      */
-    private List<BadgeCard> processForBadges(final ChallengeSolvedDTO solvedChallenge) {
+    private List<BadgeCard> processForBadges(final ChallengeSolvedEvent solvedChallenge) {
 
         Optional<Integer> optTotalScore = scoreRepository.getTotalScoreForUser(solvedChallenge.getUserId());
 
