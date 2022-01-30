@@ -10,6 +10,8 @@ import com.multiplication.service.abstraction.ChallengeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Slf4j
@@ -21,6 +23,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     private final AttemptRepository attemptRepository;
     private final ChallengeEventPublisher challengeEventPublisher;
 
+    @Transactional
     @Override
     public Attempt verifyAttempt(AttemptDTO dto) {
 
@@ -44,7 +47,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         Attempt storedAttempt = attemptRepository.save(attempt);
         challengeEventPublisher.publishChallenge(storedAttempt);
-        log.info("Event published");
+        log.info("Event published....");
 
         return storedAttempt;
     }

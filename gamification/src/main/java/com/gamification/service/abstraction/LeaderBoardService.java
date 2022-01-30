@@ -1,4 +1,4 @@
-package com.gamification.service;
+package com.gamification.service.abstraction;
 
 import com.gamification.domain.LeaderBoardRow;
 import java.util.List;

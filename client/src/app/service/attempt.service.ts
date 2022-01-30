@@ -3,13 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {AttemptPayload} from "../dto/attempt-payload";
 import {Observable} from "rxjs";
 import {AttemptResponse} from "../dto/attempt-response";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttemptService {
 
-  private url =  'http://localhost:8080/attempts';
+  private url =  environment.SERVER_URL + '/attempts';
 
   constructor(private http: HttpClient) {
 

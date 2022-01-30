@@ -1,4 +1,4 @@
-package com.gamification.service;
+package com.gamification.service.implementation;
 
 import com.gamification.domain.BadgeCard;
 import com.gamification.domain.BadgeType;
@@ -8,10 +8,11 @@ import com.challenge.ChallengeSolvedEvent;
 import com.gamification.processor.BadgeProcessor;
 import com.gamification.repository.BadgeRepository;
 import com.gamification.repository.ScoreRepository;
+import com.gamification.service.abstraction.GameService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,7 @@ public class GameServiceImpl implements GameService {
     private final BadgeRepository badgeRepository;
     private final List<BadgeProcessor> badgeProcessors;
 
+    @Transactional
     @Override
     public GameResult newAttemptForUser(final ChallengeSolvedEvent challenge) {
 
@@ -47,7 +49,7 @@ public class GameServiceImpl implements GameService {
     }
 
     /**
-     * Checks the total score and the different score cards obtained
+     * Checks the total score and the different scorecards obtained
      * to give new badges in case their conditions are met.
      */
     private List<BadgeCard> processForBadges(final ChallengeSolvedEvent solvedChallenge) {
@@ -66,8 +68,9 @@ public class GameServiceImpl implements GameService {
 
         // Calls the badge processors for badges that the user doesn't have yet
         List<BadgeCard> newBadgeCards = badgeProcessors.stream()
-                .filter(bp -> !alreadyGotBadges.contains(bp.badgeType())).map(bp -> bp.processForOptionalBadge(totalScore, scoreCardList, solvedChallenge))
-                .flatMap(Optional::stream) // returns an empty stream if empty
+                .filter(bp -> !alreadyGotBadges.contains(bp.badgeType())).map(
+                        bp -> bp.processForOptionalBadge(totalScore, scoreCardList, solvedChallenge)
+                ).flatMap(Optional::stream) // returns an empty stream if empty
                 // maps the optionals if present to new BadgeCards
                 .map(badgeType -> new BadgeCard(solvedChallenge.getUserId(), badgeType))
                 .collect(Collectors.toList());

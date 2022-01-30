@@ -1,8 +1,9 @@
-package com.gamification.service;
+package com.gamification.service.implementation;
 
 import com.gamification.domain.LeaderBoardRow;
 import com.gamification.repository.BadgeRepository;
 import com.gamification.repository.ScoreRepository;
+import com.gamification.service.abstraction.LeaderBoardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

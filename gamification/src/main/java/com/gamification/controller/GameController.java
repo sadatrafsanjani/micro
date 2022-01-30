@@ -1,7 +1,7 @@
 package com.gamification.controller;
 
 import com.challenge.ChallengeSolvedEvent;
-import com.gamification.service.GameService;
+import com.gamification.service.abstraction.GameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

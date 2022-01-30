@@ -1,13 +1,12 @@
 package com.gamification.subscriber;
 
 import com.challenge.ChallengeSolvedEvent;
-import com.gamification.service.GameService;
+import com.gamification.service.abstraction.GameService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Value;
 
 @RequiredArgsConstructor
 @Slf4j

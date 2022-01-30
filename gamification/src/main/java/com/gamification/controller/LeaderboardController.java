@@ -1,7 +1,7 @@
 package com.gamification.controller;
 
 import com.gamification.domain.LeaderBoardRow;
-import com.gamification.service.LeaderBoardService;
+import com.gamification.service.abstraction.LeaderBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
