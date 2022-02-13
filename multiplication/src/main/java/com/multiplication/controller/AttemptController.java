@@ -21,6 +21,8 @@ public class AttemptController {
     @PostMapping
     public ResponseEntity<Attempt> postResult(@RequestBody @Valid AttemptDTO attemptDTO) {
 
+        log.info("Received new attempt from {}", attemptDTO.getUserAlias());
+
         return ResponseEntity.ok(challengeService.verifyAttempt(attemptDTO));
     }
 

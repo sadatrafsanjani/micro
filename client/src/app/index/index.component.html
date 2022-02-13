@@ -1,10 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 text-center">
-      <h1>Guess The Number</h1>
-
+      <h1 class="mb-3">Guess The Number</h1>
       <form [formGroup]="attemptForm" (ngSubmit)="onSubmit()">
-
         <div class="mb-3">
           <span *ngIf="challengeResponse != null">
             <h3>{{challengeResponse.factorA}} X {{challengeResponse.factorB}}</h3>
@@ -21,10 +19,11 @@
         <div class="mb-3">
           <button class="btn btn-success w-100" type="submit">Submit</button>
         </div>
-
       </form>
     </div>
+
     <div class="col-md-6">
+      <h1 class="mb-3">Guesses</h1>
       <table class="table table-bordered" *ngIf="attempts != null">
         <tr>
           <td>ID</td>
@@ -45,7 +44,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 mt-5">
       <h2 class="mb-3">Leader Board</h2>
       <table class="table table-bordered" *ngIf="attempts != null">
         <tr>
