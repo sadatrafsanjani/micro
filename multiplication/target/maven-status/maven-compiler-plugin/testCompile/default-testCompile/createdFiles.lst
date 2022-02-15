@@ -1,0 +1,4 @@
+com/multiplication/challenge/ChallengeGeneratorServiceTest.class
+com/multiplication/MultiplicationApplicationTests.class
+com/multiplication/challenge/ChallengeEventPublisherTest.class
+com/multiplication/challenge/AttemptControllerTest.class

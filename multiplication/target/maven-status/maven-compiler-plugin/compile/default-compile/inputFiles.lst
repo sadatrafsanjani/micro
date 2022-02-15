@@ -9,7 +9,6 @@
 /home/guest/Documents/micro/multiplication/src/main/java/com/multiplication/publisher/ChallengeEventPublisher.java
 /home/guest/Documents/micro/multiplication/src/main/java/com/multiplication/controller/ChallengeController.java
 /home/guest/Documents/micro/multiplication/src/main/java/com/multiplication/model/Attempt.java
-/home/guest/Documents/micro/multiplication/src/main/java/com/multiplication/config/AMQpConfig.java
 /home/guest/Documents/micro/multiplication/src/main/java/com/multiplication/dto/AttemptDTO.java
 /home/guest/Documents/micro/multiplication/src/main/java/com/multiplication/service/implementation/ChallengeGeneratorServiceImpl.java
 /home/guest/Documents/micro/multiplication/src/main/java/com/challenge/ChallengeSolvedEvent.java
@@ -17,4 +16,5 @@
 /home/guest/Documents/micro/multiplication/src/main/java/com/multiplication/service/abstraction/ChallengeGeneratorService.java
 /home/guest/Documents/micro/multiplication/src/main/java/com/multiplication/service/implementation/ChallengeServiceImpl.java
 /home/guest/Documents/micro/multiplication/src/main/java/com/multiplication/controller/AttemptController.java
+/home/guest/Documents/micro/multiplication/src/main/java/com/multiplication/config/AMQPConfig.java
 /home/guest/Documents/micro/multiplication/src/main/java/com/multiplication/repository/UserRepository.java
